@@ -1,24 +1,23 @@
+import java.util.Random;
+
 public class Main {
       public static void main(String[] args) {
-         ArrayQueue<Integer> queue =new ArrayQueue<>(20);
-          for (int i = 0; i < 10; i++) {
-              queue.enqueue(i);
-              System.out.println(queue);
-              if(i%3==2){
-                  queue.dequeue();
-                  System.out.println(queue);
-              }
+          int opt=100000;
+         LoopQueue<Integer> queue =new LoopQueue<>();
+          System.out.println(testQueue(queue, opt));
+          ArrayQueue<Integer> queue1=new ArrayQueue<>();
+          System.out.println(testQueue(queue1, opt));
+      }
+      private static double testQueue(Queue<Integer> q,int optCount){
+          long startTime=System.nanoTime();
+          Random random=new Random();
+          for (int i = 0; i < optCount; i++) {
+              q.enqueue(random.nextInt(Integer.MAX_VALUE));
           }
-          System.out.println(queue);
-          //queue.dequeue();
-          System.out.println(queue.getSize());
-          System.out.println(queue);
-          System.out.println(queue.isEmpty());
-          System.out.println(queue.getSize());
-          queue.dequeue();
-          System.out.println(queue.getFront());
-          System.out.println(queue);
-          System.out.println(queue.getSize());
-          System.out.println(queue.getCapacity());
+          for (int i = 0; i < optCount; i++) {
+              q.dequeue();
+          }
+          long endTime=System.nanoTime();
+          return (endTime-startTime)/1000000000.0;
       }
 }
